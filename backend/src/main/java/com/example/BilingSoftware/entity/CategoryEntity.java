@@ -12,13 +12,12 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "tbl_category")
+@Table(name = "categorytbl")
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class CategoryEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -34,4 +33,5 @@ public class CategoryEntity {
     private Timestamp createdAt;
     @UpdateTimestamp
     private Timestamp updatedAt;
+
 }

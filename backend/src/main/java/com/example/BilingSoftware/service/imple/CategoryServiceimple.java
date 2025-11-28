@@ -5,9 +5,11 @@ import com.example.BilingSoftware.io.CategoryRequest;
 import com.example.BilingSoftware.io.CategoryResponse;
 import com.example.BilingSoftware.repo.CategoryRepo;
 import com.example.BilingSoftware.service.CategoryService;
+import com.example.BilingSoftware.service.FileUploadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
@@ -19,10 +21,16 @@ public class CategoryServiceimple implements CategoryService {
 
     @Autowired
     private final CategoryRepo categoryRepo;
+
+    @Autowired
+    private final FileUploadService fileUploadService;
     @Override
-    public CategoryResponse add(CategoryRequest categoryRequest) {
+    public CategoryResponse add(CategoryRequest categoryRequest, MultipartFile file) {
+        String imgUrl=fileUploadService.uploadFile(file);
         CategoryEntity newCategory= converToEntity(categoryRequest);
+        newCategory.setImgUrl(imgUrl);
         newCategory=categoryRepo.save(newCategory);
+        System.out.println("Saved id: " +newCategory.getCategoryID());
         return converToResponse(newCategory);
     }
 
@@ -35,8 +43,9 @@ public class CategoryServiceimple implements CategoryService {
     }
 
     @Override
-    public void delete(String categoryId) {
-        CategoryEntity existingcategory=categoryRepo.findById(categoryId).orElseThrow(()-> new RuntimeException("Category not found:"+categoryId));
+    public void delete(String categoryID) {
+        CategoryEntity existingcategory =categoryRepo.findByCategoryID(categoryID).orElseThrow(()-> new RuntimeException("Category not found:"+categoryID));
+        fileUploadService.deletefile(existingcategory.getImgUrl());
         categoryRepo.delete(existingcategory);
     }
 
