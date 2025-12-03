@@ -5,9 +5,9 @@ export const addCategory = async (category) => {
 };
 
 export const deleteCategory = async(categoryID) => {
-   return await axios.post(`http://localhost:8080/api/v1.0/categories/${categoryID}`, categoryID);
+   return await axios.delete(`http://localhost:8080/api/v1.0/categories/${categoryID}`, categoryID);
 }
 
 export const fetchallCategory = async()=>{
-    return await axios.post(`http://localhost:8080/api/v1.0/categories`);
+    return await axios.get(`http://localhost:8080/api/v1.0/categories`);
 }

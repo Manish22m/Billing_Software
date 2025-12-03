@@ -44,7 +44,7 @@ public class FileUploadImple implements FileUploadService {
                     .build();
             PutObjectResponse response=s3Client.putObject(putObjectRequest, RequestBody.fromBytes(file.getBytes()));
             if (response.sdkHttpResponse().isSuccessful()){
-                return "https://"+bucketName+".s3."+ region+"amazonaws.com/"+key;
+                return "https://"+bucketName+".s3."+ region+".amazonaws.com/"+key;
             }else {
                 throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "an error occured while uploading file");
             }

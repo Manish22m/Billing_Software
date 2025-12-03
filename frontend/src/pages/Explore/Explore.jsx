@@ -1,7 +1,35 @@
+import { useContext } from 'react';
+import './Explore.css'; 
+import { AppContext } from '../../context/AppContext';
+
 const Explore= () => {
+    const {categories} =useContext(AppContext);
+    console.log(categories);
     return(
-        <div>Explore</div>
-    )
+        <div className="explore-container text-light">
+        <div className="left-column">
+            <div className="first-row" style={{overflowY:'auto'}}>
+                first row
+            </div>
+            <hr className="horizontal-line" />
+            <div className="second-row" style={{overflowY:'auto'}}>
+                second row
+            </div>
+        </div>
+        <div className="right-column d-flex flex-column" >
+            <div className="customer-form-container" style={{height:'15%'}}>
+                    customer form
+            </div>
+            <hr className="my-3 text-light" />
+            <div className="cart-items-container" style={{height:'55%', overflow:'auto'}}>
+                    cart items
+            </div>
+            <div className="car-summary-container" style={{height:'30%'}}>
+                cart summary
+            </div>
+        </div>
+        </div>
+    );
 }
 
 export default Explore;
