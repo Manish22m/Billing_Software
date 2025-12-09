@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Spring Boot config files
+application.properties
+application.yml
+
